@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">News api</string>
+    <string name="unknown_error">Whoops, looks like something went wrong.</string>
+</resources>
