@@ -7,28 +7,22 @@ import com.google.gson.annotations.SerializedName;
  */
 public class NewsData {
     @SerializedName("author")
-    String author;
+    private String author;
 
     @SerializedName("title")
-    String title;
+    private String title;
 
     @SerializedName("description")
-    String description;
+    private String description;
 
     @SerializedName("url")
-    String url;
+    private String url;
 
     @SerializedName("urlToImage")
-    String urlToImage;
+    private String urlToImage;
 
-    @SerializedName("publishedAt")
-    String publishedAt;
 
     public NewsData() {
-    }
-
-    public String getAuthor() {
-        return author;
     }
 
     public String getTitle() {
@@ -47,7 +41,4 @@ public class NewsData {
         return urlToImage;
     }
 
-    public String getPublishedAt() {
-        return publishedAt;
-    }
 }

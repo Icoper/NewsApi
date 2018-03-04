@@ -1,5 +1,7 @@
 package apps_x.com.newsapi.adapter;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,13 +19,15 @@ import apps_x.com.newsapi.model.NewsData;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.support.v4.content.ContextCompat.startActivity;
+
 /*
  * This class is a customized adapter for processing about displaying news data,
  * received from newsapi.org.
  */
 public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.NewsViewHolder> {
     // Contains a list of models with data and news
-    ArrayList<NewsData> newsList;
+    private ArrayList<NewsData> newsList;
 
     private View holderView;
 
@@ -37,13 +41,21 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.NewsVi
     @Override
     public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         holderView = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_item, parent, false);
-        NewsViewHolder newsViewHolder = new NewsViewHolder(holderView);
-        return newsViewHolder;
+        return new NewsViewHolder(holderView);
     }
 
     @Override
-    public void onBindViewHolder(NewsViewHolder holder, int position) {
+    public void onBindViewHolder(NewsViewHolder holder, final int position) {
         holder.newsDescription.setText(newsList.get(position).getDescription());
+        holder.newsDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Open the browser and go to the news URL.
+                Uri address = Uri.parse(newsList.get(position).getUrl());
+                Intent openlink = new Intent(Intent.ACTION_VIEW, address);
+                startActivity(view.getContext(), openlink, null);
+            }
+        });
         holder.newsTitle.setText(newsList.get(position).getTitle());
         // Declare and initialize the variable to store the news image url
         String imgUrl = "";
@@ -73,7 +85,7 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.NewsVi
         return newsList.size();
     }
 
-    public class NewsViewHolder extends RecyclerView.ViewHolder {
+    class NewsViewHolder extends RecyclerView.ViewHolder {
         // Setup news item holderView
         @BindView(R.id.ni_news_card_view)
         CardView cardView;
@@ -84,7 +96,7 @@ public class NewsViewAdapter extends RecyclerView.Adapter<NewsViewAdapter.NewsVi
         @BindView(R.id.ni_news_title)
         TextView newsTitle;
 
-        public NewsViewHolder(View itemView) {
+        NewsViewHolder(View itemView) {
             super(itemView);
             // Setup ButterKnife
             ButterKnife.bind(this, itemView);

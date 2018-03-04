@@ -75,8 +75,6 @@ public class NewsActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient.build())
                 .build();
-
-        //
         getNews();
     }
 
@@ -100,7 +98,7 @@ public class NewsActivity extends AppCompatActivity {
      */
     public void getNews() {
         // Used as a search term for a query
-        String searchWord = "world";
+        String searchWord = "space";
         Server service = retrofit.create(Server.class);
 
         // Getting data from the server

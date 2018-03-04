@@ -9,14 +9,8 @@ import java.util.List;
  * Contains a link to NewsData.class which in turn stores information about the news
  */
 public class NewsResponse {
-    @SerializedName("status")
-    String status;
-
-    @SerializedName("totalResults")
-    int totalResults;
-
     @SerializedName("articles")
-    List<NewsData> newsDataList;
+    private List<NewsData> newsDataList;
 
     public List<NewsData> getNewsDataList() {
         return newsDataList;
